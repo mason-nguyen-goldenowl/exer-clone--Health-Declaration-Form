@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Wrap, WrapItem, Heading, Image, Flex } from "@chakra-ui/react";
+import { WrapItem, Heading, Image, Flex } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 import logo from "../../asset/Logo_BoYTe.png";
@@ -10,6 +10,7 @@ export default function NavBar() {
     <div>
       <Flex
         display="flex"
+        position="fixed"
         bg="#0056c1"
         w="100%"
         p="0 123px"
