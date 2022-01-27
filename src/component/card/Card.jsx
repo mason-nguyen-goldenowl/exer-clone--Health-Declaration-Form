@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Box, Radio, Stack, RadioGroup } from "@chakra-ui/react";
+import Form from "../form/Form";
 
 export default function Card() {
   const [declarer, setDeclarer] = useState("patient");
@@ -38,6 +39,10 @@ export default function Card() {
               })}
             </Stack>
           </RadioGroup>
+        </Box>
+
+        <Box marginTop="0.375rem">
+          <Form declarer={declarer} />
         </Box>
       </Box>
     </div>
