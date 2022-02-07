@@ -20,11 +20,11 @@ import {
   Radio,
   Checkbox,
   CheckboxGroup,
-  HStack,
   Grid,
 } from "@chakra-ui/react";
 
 import "./Form.scss";
+import Epidemiologicalfactors from "../table/EpidemiologicalFactors";
 
 export default function Form(props) {
   registerLocale("vi", vi);
@@ -58,7 +58,6 @@ export default function Form(props) {
       );
     });
   };
-  console.log(props.declarer);
 
   const renderDistricts = () => {
     let Province = provinces.find(
@@ -551,6 +550,7 @@ export default function Form(props) {
         {renderVaccination()}
         {renderTest()}
         {renderMonitoring()}
+        <Epidemiologicalfactors />
         <Button
           mt={4}
           colorScheme="teal"
