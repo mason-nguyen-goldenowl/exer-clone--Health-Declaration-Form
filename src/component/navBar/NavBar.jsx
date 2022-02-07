@@ -18,6 +18,7 @@ export default function NavBar() {
         color="white"
         alignItems="center"
         justifyContent="space-between"
+        zIndex="99"
       >
         <WrapItem display="flex" alignItems="center" mmaxWidth="100%" w="auto">
           <Image src={logo} w="45px" h="45px" alt="Dan Abramov" />
