@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-
 import { Box, Radio, Stack, RadioGroup } from "@chakra-ui/react";
+
 import Form from "../form/Form";
 
 export default function Card() {
   const [declarer, setDeclarer] = useState("patient");
+
   const options = [
     { value: "patient", name: "Bệnh nhân/Người nhà" },
     { value: "staff", name: "Nhân viên bệnh viện" },

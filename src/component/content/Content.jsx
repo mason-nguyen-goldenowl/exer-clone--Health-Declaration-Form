@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Heading } from "@chakra-ui/react";
+
 import Card from "../card/Card";
+
 export default function Content() {
   return (
     <div>

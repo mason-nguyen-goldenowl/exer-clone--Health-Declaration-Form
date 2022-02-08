@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   Table,
   Thead,
@@ -10,7 +12,11 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
+import { ADD_FACTOR } from "../../redux/type/FormType";
+
 const Epidemiologicalfactors = () => {
+  const dispatch = useDispatch();
+
   const [signs, setSign] = useState([
     { name: "fever", checked: "No", display: "Sốt" },
     { name: "cough", checked: "No", display: "Ho" },
@@ -34,11 +40,11 @@ const Epidemiologicalfactors = () => {
     return signs.map((sign) => {
       return (
         <Tr key={sign.name}>
-          <Td width="100%">
+          <Td width="90%">
             {sign.display} <span style={{ color: "red" }}> (*)</span>
           </Td>
 
-          <Td>
+          <Td width="100%">
             <input
               type="radio"
               name={sign.name}
@@ -47,7 +53,7 @@ const Epidemiologicalfactors = () => {
               onChange={handleChange}
             ></input>
           </Td>
-          <Td>
+          <Td width="100%">
             <input
               type="radio"
               name={sign.name}
@@ -60,6 +66,13 @@ const Epidemiologicalfactors = () => {
       );
     });
   };
+
+  useEffect(() => {
+    dispatch({
+      type: ADD_FACTOR,
+      factor: signs,
+    });
+  }, [signs]);
 
   return (
     <Box>

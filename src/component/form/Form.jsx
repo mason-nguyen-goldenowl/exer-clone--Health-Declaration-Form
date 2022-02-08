@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-
 import vi from "date-fns/locale/vi";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker, { registerLocale } from "react-datepicker";
 
-import declarationPlaces from "../../data/ DeclarationPlace.json";
 import {
   Box,
   FormErrorMessage,
@@ -21,14 +20,20 @@ import {
   Checkbox,
   CheckboxGroup,
   Grid,
+  Textarea,
 } from "@chakra-ui/react";
 
-import "./Form.scss";
+import IllnessTable from "../table/ IllnessTable";
 import Epidemiologicalfactors from "../table/EpidemiologicalFactors";
+import { SUBMIT } from "../../redux/type/FormType";
+
+import declarationPlaces from "../../data/ DeclarationPlace.json";
+
+import "./Form.scss";
 
 export default function Form(props) {
   registerLocale("vi", vi);
-  const [startDate, setStartDate] = useState(new Date());
+  const [birthDay, setBirthDay] = useState(new Date());
   const [provinces, setProvinces] = useState([]);
   const [provinceClick, setProvinceClick] = useState("");
   const [districtClick, setDistrictClick] = useState([]);
@@ -38,6 +43,7 @@ export default function Form(props) {
   const [Molnupiravir, setMolnupiravir] = useState("no");
   const [MolnupiravirList, setMolnupiravirList] = useState([]);
   const [disase, setDisase] = useState([]);
+  const [note, setNote] = useState("");
 
   const {
     handleSubmit,
@@ -45,7 +51,25 @@ export default function Form(props) {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const dispatch = useDispatch();
+
   const onSubmit = (values) => {
+    values = {
+      ...values,
+      declarer: props.declarer,
+      testCovid: testCovid,
+      placeTest: placeTest,
+      sickness: sickness,
+      molnupiravir: MolnupiravirList,
+      disase: disase,
+      note: note,
+      birthDay: birthDay,
+    };
+
+    dispatch({
+      type: SUBMIT,
+      values,
+    });
     console.log(values);
   };
 
@@ -349,6 +373,10 @@ export default function Form(props) {
       );
     }
   };
+
+  const handleTextArea = (e) => {
+    setNote(e.target.value);
+  };
   useEffect(() => {
     axios({
       method: "get",
@@ -435,8 +463,8 @@ export default function Form(props) {
             </FormLabel>
             <DatePicker
               locale="vi"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              selected={birthDay}
+              onChange={(date) => setBirthDay(date)}
             />
           </FormControl>
 
@@ -551,6 +579,17 @@ export default function Form(props) {
         {renderTest()}
         {renderMonitoring()}
         <Epidemiologicalfactors />
+        {props.declarer !== "monitoring" ? (
+          <IllnessTable declarer={props.declarer} />
+        ) : (
+          <Box></Box>
+        )}
+        <Textarea
+          marginTop="10px"
+          onChange={handleTextArea}
+          placeholder="Vui lòng cung cấp thêm chi tiết thông tin về triệu chứng, dịch tễ, lịch sử di chuyển (Nếu có)"
+          size="sm"
+        />
         <Button
           mt={4}
           colorScheme="teal"
