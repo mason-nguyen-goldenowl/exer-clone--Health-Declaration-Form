@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Wrap, WrapItem, Heading, Image, Flex } from "@chakra-ui/react";
+import { WrapItem, Heading, Image, Flex } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 import logo from "../../asset/Logo_BoYTe.png";
@@ -10,6 +10,7 @@ export default function NavBar() {
     <div>
       <Flex
         display="flex"
+        position="fixed"
         bg="#0056c1"
         w="100%"
         p="0 123px"
@@ -17,6 +18,7 @@ export default function NavBar() {
         color="white"
         alignItems="center"
         justifyContent="space-between"
+        zIndex="99"
       >
         <WrapItem display="flex" alignItems="center" mmaxWidth="100%" w="auto">
           <Image src={logo} w="45px" h="45px" alt="Dan Abramov" />
